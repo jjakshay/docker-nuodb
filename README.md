@@ -63,7 +63,7 @@ You could override nuodb `default.properties` by using mounting volume:
 
 where <override-dir> is an absolute path of a directory that could contain:
 
-    - `default.properties`: custom config file
+- `default.properties`: custom config file
 
 Placeholder environment variable could be used inside your overrided `default.properties` like following:
 
