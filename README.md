@@ -44,8 +44,7 @@ Done!
 Configuration
 -------------
 
-Environment variables
-+++++++++++++++++++++
+# Environment variables
 
 - `BROKER` (default: `true`): Should this host be a broker?
 - `DOMAIN_USER` (default: `domain`): The administrative user for your domain. All nodes should have the same user.
@@ -56,8 +55,7 @@ Environment variables
 - `AUTOMATION` (default: `false`): Whether to enable automation on the system database. [NuoDB manual](http://dev.nuodb.com).
 - `AUTOMATION_BOOTSTRAP` (default: `false`): Should this node bootstrap the system database? See [NuoDB manual](http://dev.nuodb.com).
 
-Override configuration
-++++++++++++++++++++++
+# Override configuration
 
 You could override nuodb `default.properties` by using mounting volume:
 
@@ -73,8 +71,7 @@ Placeholder environment variable could be used inside your overrided `default.pr
 
 Thus `domainPassword` will be equals to value of environment variable `$DOMAIN_PASSWORD`
 
-Mounting the database file volume
-+++++++++++++++++++++++++++++++++
+# Mounting the database file volume
 
 In order to persist the database data, you can mount a local folder from the host on the container to store the database files. To do so:
 
