@@ -20,7 +20,7 @@ The first time that you run your container, check the logs of the container by r
 
 You will see an output like the following:
 
-    ==========================================================================================
+    ========================================================================================
     You can now connect to this Nuodb Server:
 
         domain:
@@ -37,7 +37,7 @@ You will see an output like the following:
         Database: testdb
         [SM] 87ff08502c9e/172.17.0.186:48005 (DEFAULT_REGION) [ pid = 290 ] RUNNING
         [TE] 87ff08502c9e/172.17.0.186:48006 (DEFAULT_REGION) [ pid = 352 ] RUNNING
-    ==========================================================================================
+    ========================================================================================
 
 Done!
 
