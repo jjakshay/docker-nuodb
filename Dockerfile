@@ -43,4 +43,6 @@ CMD /run.sh
 
 # Broker
 EXPOSE 48004
+EXPOSE 48005
+EXPOSE 48006
 
