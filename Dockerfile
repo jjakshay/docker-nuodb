@@ -35,6 +35,7 @@ ENV DBA_PASSWORD bird
 ENV DATABASE_NAME testdb
 ENV AUTOMATION false
 ENV AUTOMATION_BOOTSTRAP false
+ENV LOG_LEVEL INFO
 
 # Define working directory.
 WORKDIR /opt/nuodb
