@@ -54,6 +54,7 @@ Configuration
 - `DATABASE_NAME` (default: `testdb`): The database name of new database created when launching the container.
 - `AUTOMATION` (default: `false`): Whether to enable automation on the system database. [NuoDB manual](http://dev.nuodb.com).
 - `AUTOMATION_BOOTSTRAP` (default: `false`): Should this node bootstrap the system database? See [NuoDB manual](http://dev.nuodb.com).
+- `LICENSE`: Nuodb license to be installed.
 
 ### Override configuration
 
