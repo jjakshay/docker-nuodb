@@ -3,6 +3,20 @@ docker-nuodb
 
 docker container for nuodb database
 
+Ports
+-----
+
+Nuodb needs any open ports:
+
+- `48004`: broker
+- `48005`: SM for your database
+- `48006`: TE for your database
+
+If you set AUTOMATION=true
+
+- `48007`: SM for `nuodb_system` database
+- `48008`: TE for `nuodb_system` database
+
 Usage
 -----
 
