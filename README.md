@@ -70,7 +70,7 @@ Configuration
 
 You could override nuodb `default.properties` by using mounting volume:
 
-    docker run -d -p 48004:48004  -v <override-dir>:/nuodb-override kakawait/nuodb
+    docker run -d -p 48004:48004 -p 8080:8080 -p 8888:8888 -p 8889:8889 -v <override-dir>:/nuodb-override kakawait/nuodb
 
 where <override-dir> is an absolute path of a directory that could contain:
 
@@ -102,4 +102,4 @@ If you are using `boot2docker`, you should use private network adapter to commun
 
 In order to persist the database data, you can mount a local folder from the host on the container to store the database files. To do so:
 
-    docker run -d -p 48004:48004 -v /path/in/host:/opt/nuodb/data kakawait/nuodb
+    docker run -d -p 48004:48004 -p 8080:8080 -p 8888:8888 -p 8889:8889 -v /path/in/host:/opt/nuodb/data kakawait/nuodb
