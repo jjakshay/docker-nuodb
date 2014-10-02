@@ -6,7 +6,7 @@ docker container for nuodb database
 Ports
 -----
 
-Nuodb needs any open ports:
+Nuodb needs some open ports:
 
 - `48004`: broker
 - `48005`: SM for your database
