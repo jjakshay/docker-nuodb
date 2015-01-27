@@ -8,14 +8,15 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 ### Install nuodb ###
-RUN wget -q -O /tmp/nuodb-2.0.4.linux.x64.deb "http://download.nuohub.org/nuodb-2.0.4.linux.x64.deb" && \
-    sudo -E bash -c "dpkg --install /tmp/nuodb-2.0.4.linux.x64.deb" && \
-    sudo rm /tmp/nuodb-2.0.4.linux.x64.deb
+# Fix http://dev.nuodb.com/community/news-announcements/critical-licensing-issue by using 2.0.4.24 build
+RUN wget -q -O /tmp/nuodb_2.0.4.24_amd64.deb "http://download.nuohub.org/nuodb_2.0.4.24_amd64.deb" && \
+    sudo -E bash -c "dpkg --install /tmp/nuodb_2.0.4.24_amd64.deb" && \
+    sudo rm /tmp/nuodb_2.0.4.24_amd64.deb
 
 ### Setup ###
 # Mount volume
-RUN mkdir -p /opt/nuodb/data &&\
-    mkdir -p /nuodb-override &&\
+RUN mkdir -p /opt/nuodb/data && \
+    mkdir -p /nuodb-override && \
     chown nuodb:nuodb /opt/nuodb/data
 VOLUME ["/opt/nuodb/data", "/nuodb-override"]
 RUN chown nuodb:nuodb /opt/nuodb/data
