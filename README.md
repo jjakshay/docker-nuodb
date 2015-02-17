@@ -3,10 +3,27 @@ docker-nuodb
 
 docker container for nuodb database
 
+- [2.0.4, 2.0 (2.0/Dockerfile)]()
+- [2.1, 2.1.1 (2.1/Dockerfile)]()
+
+ATTENTION READ this if you plan to use >= 2.1
+---------------------------------------------
+
+Since >= 2.1 Nuodb forces Linux kernel with Transparent Huge Pages to be **disabled** else service won't be launch.
+
+So we have to tune 
+
+```
+echo never > /sys/kernel/mm/transparent_hugepage/enabled
+echo never > /sys/kernel/mm/transparent_hugepage/defrag
+```
+
+But in order to edit kernel file container should be run with `--privileged=true` or you should set this value on the HOST.
+
 Ports
 -----
 
-Nuodb needs some open ports:
+Nuodb needs some open ports (can be tuned by using `NEW_PROCESS_PORT_RANGE`):
 
 - `48004`: broker
 - `48005`: SM for your database
@@ -17,28 +34,34 @@ If you set AUTOMATION=true
 - `48007`: SM for `nuodb_system` database
 - `48008`: TE for `nuodb_system` database
 
+### Optional
+
+- `8888`: Nuodb REST
+- `8889`: Nuodb Admin
+- `9001`: Nuodb legacy console & SQL explorer (since 2.1)
+
 Usage
 -----
 
 To create the image kakawait/nuodb, execute the following command:
 
-    docker build --rm -t kakawait/nuodb .
+    docker build -t kakawait/nuodb .
 
 To run the image and bind to port 48004:
 
-    docker run -d -p 48004:48004 -p 48005:48005 -p 48006:48006 kakawait/nuodb
+    docker run -d --privileged=true -p 48004:48004 -p 48005:48005 -p 48006:48006 -p 9001:9001 -p 8888:8888 kakawait/nuodb
 
 ATTENTION if you are using boot2docker please use the following command (see section Configuration -> BROKER_ALT_ADDR for more information):
 
-    docker run -d -p 48004:48004 -p 48005:48005 -p 48006:48006 -e BROKER_ALT_ADDR=<boot2docker ip> kakawait/nuodb
+    docker run -d --privileged=true -p 48004:48004 -p 48005:48005 -p 48006:48006 -p 9001:9001 -p 8888:8888 -e BROKER_ALT_ADDR=<boot2docker ip> kakawait/nuodb
 
 Where <boot2docker ip> can be retrieve using `boot2docker ip` command. On MacOsX you can run like following:
 
-    docker run -d -p 48004:48004 -p 48005:48005 -p 48006:48006 -e BROKER_ALT_ADDR=$(boot2docker ip 2>/dev/null) kakawait/nuodb
+    docker run -d --privileged=true -p 48004:48004 -p 48005:48005 -p 48006:48006 -p 9001:9001 -p 8888:8888 -e BROKER_ALT_ADDR=$(boot2docker ip 2>/dev/null) kakawait/nuodb
 
 The first time that you run your container, check the logs of the container by running:
 
-    docker logs <CONTAINER_ID>
+    docker logs -f <CONTAINER_ID>
 
 You will see an output like the following:
 
@@ -59,7 +82,12 @@ You will see an output like the following:
         Database: testdb
         [SM] 87ff08502c9e/192.168.59.103:48005 (DEFAULT_REGION) [ pid = 290 ] RUNNING
         [TE] 87ff08502c9e/192.168.59.103:48006 (DEFAULT_REGION) [ pid = 352 ] RUNNING
-    ========================================================================================
+       
+        ecosystem:
+        [autoconsole] localhost:8888
+        [autoconsole-admin] localhost:8889
+        [web console] localhost:9001
+    ==========================================================================================
 
 Done!
 
@@ -70,6 +98,7 @@ Configuration
 
 - `BROKER` (default: `true`): Should this host be a broker?
 - `BROKER_ALT_ADDR` (default: <HOST IP>): Specify this if you want other nodes to connect to this server at an address that is not local to the host.
+- `NEW_PROCESS_PORT_RANGE`: (default: 48005): Specify port range for new nuodb process (sm, te, ...). 
 - `DOMAIN_USER` (default: `domain`): The administrative user for your domain. All nodes should have the same user.
 - `DOMAIN_PASSWORD` (default: `bird`): The administrative password for your domain. All nodes should have the same password. If you set value `**Random**` a random password will be generated.
 - `DBA_USER` (default: `dba`): The administrative user for you database (see `DATABASE_NAME`).
@@ -80,11 +109,12 @@ Configuration
 - `LOG_LEVEL` (default: `INFO`): Valid levels are, from most to least verbose: ALL, FINEST, FINER, FINE, CONFIG, INFO, WARNING, SEVERE, OFF.
 - `LICENSE`: Nuodb license to be installed.
 
+
 ### Override configuration
 
 You could override nuodb `default.properties` by using mounting volume:
 
-    docker run -d -p 48004:48004 -p 8080:8080 -p 8888:8888 -p 8889:8889 -v <override-dir>:/nuodb-override kakawait/nuodb
+    docker run -d -p 48004:48004 -p 48005:48005 -p 48006:48006 -p 9001:9001 -p 8888:8888 -v <override-dir>:/nuodb-override kakawait/nuodb
 
 where <override-dir> is an absolute path of a directory that could contain:
 
@@ -106,14 +136,14 @@ Where <DOCKER_HOST_WITH_NUODBCONTAINER> is not local address (`localhost`, `127.
 
 Thus run container for above `jdbcUrl` like following:
 
-    docker run -d -p 48004:48004 -p 48005:48005 -p 48006:48006 -e BROKER_ALT_ADDR=<DOCKER_HOST_WITH_NUODBCONTAINER> kakawait/nuodb
+    docker run -d -p 48004:48004 -p 48005:48005 -p 48006:48006 -p 9001:9001 -p 8888:8888 -e BROKER_ALT_ADDR=<DOCKER_HOST_WITH_NUODBCONTAINER> kakawait/nuodb
 
 If you are using `boot2docker`, you should use private network adapter to communicate with your container so please use:
 
-    docker run -d -p 48004:48004 -p 48005:48005 -p 48006:48006 -e BROKER_ALT_ADDR=$(boot2docker ip 2>/dev/null) kakawait/nuodb
+    docker run -d -p 48004:48004 -p 48005:48005 -p 48006:48006 -p 9001:9001 -p 8888:8888 -e BROKER_ALT_ADDR=$(boot2docker ip 2>/dev/null) kakawait/nuodb
 
 ### Mounting the database file volume
 
 In order to persist the database data, you can mount a local folder from the host on the container to store the database files. To do so:
 
-    docker run -d -p 48004:48004 -p 8080:8080 -p 8888:8888 -p 8889:8889 -v /path/in/host:/opt/nuodb/data kakawait/nuodb
+    docker run -d -p 48004:48004 -p 48005:48005 -p 48006:48006 -p 9001:9001 -p 8888:8888 -v /path/in/host:/opt/nuodb/data kakawait/nuodb

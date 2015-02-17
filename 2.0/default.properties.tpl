@@ -73,7 +73,7 @@ log = ${LOG_LEVEL}
 # Each new process (transaction engine or storage manager) that is started on a
 # machine is communicated with via an assigned TCP/IP port that is specified
 # via this property.  Ensure firewall rules allow access from other machines.
-portRange = 48005
+portRange = ${NEW_PROCESS_PORT_RANGE}
 
 # A flag specifying whether this host has automation enabled and should attempt
 # to access the NuoDB "nuodb_system" admin database
