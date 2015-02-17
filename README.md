@@ -97,8 +97,8 @@ Configuration
 ### Environment variables
 
 - `BROKER` (default: `true`): Should this host be a broker?
-- `BROKER_ALT_ADDR` (default: <HOST IP>): Specify this if you want other nodes to connect to this server at an address that is not local to the host.
-- `NEW_PROCESS_PORT_RANGE`: (default: 48005): Specify port range for new nuodb process (sm, te, ...). 
+- `BROKER_ALT_ADDR` (default: `<HOST IP>`): Specify this if you want other nodes to connect to this server at an address that is not local to the host.
+- `NEW_PROCESS_PORT_RANGE`: (default: `48005`): Specify port range for new nuodb process (sm, te, ...). 
 - `DOMAIN_USER` (default: `domain`): The administrative user for your domain. All nodes should have the same user.
 - `DOMAIN_PASSWORD` (default: `bird`): The administrative password for your domain. All nodes should have the same password. If you set value `**Random**` a random password will be generated.
 - `DBA_USER` (default: `dba`): The administrative user for you database (see `DATABASE_NAME`).
@@ -108,7 +108,9 @@ Configuration
 - `AUTOMATION_BOOTSTRAP` (default: `false`): Should this node bootstrap the system database? See [NuoDB manual](http://dev.nuodb.com).
 - `LOG_LEVEL` (default: `INFO`): Valid levels are, from most to least verbose: ALL, FINEST, FINER, FINE, CONFIG, INFO, WARNING, SEVERE, OFF.
 - `LICENSE`: Nuodb license to be installed.
-
+- `NUOAGENT` (default: `true`): Specify if container should launch nuoagent service (main process).
+- `NUOWEBCONSOLE` (default: `true`): Specify if container should launch nuowebconsole service (optional).
+- `NUORESTSVC` (default: `true`): Specify if container should launch nuorestsvc service (optional).
 
 ### Override configuration
 
