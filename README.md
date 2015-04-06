@@ -3,8 +3,9 @@ docker-nuodb
 
 docker container for nuodb database
 
-- [2.0.4, 2.0 (2.0/Dockerfile)](https://github.com/kakawait/docker-nuodb/blob/master/2.0/Dockerfile)
+- [2.0, 2.0.4 (2.0/Dockerfile)](https://github.com/kakawait/docker-nuodb/blob/master/2.0/Dockerfile)
 - [2.1, 2.1.1 (2.1/Dockerfile)](https://github.com/kakawait/docker-nuodb/blob/master/2.1/Dockerfile)
+- [2.2, 2.2.0 (2.2/Dockerfile)](https://github.com/kakawait/docker-nuodb/blob/master/2.2/Dockerfile)
 
 ATTENTION READ this if you plan to use >= 2.1
 ---------------------------------------------
