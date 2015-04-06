@@ -1,4 +1,4 @@
-FROM dockerfile/java:oracle-java7
+FROM java:7u75
 MAINTAINER kakawait <thibaud.lepretre@gmail.com>
 
 ### Install dependencies ###
@@ -9,8 +9,8 @@ RUN apt-get update && \
 
 ### Install nuodb ###
 RUN wget -q -O /tmp/nuodb_2.1.1.13_amd64.deb "http://download.nuohub.org/nuodb_2.1.1.13_amd64.deb" && \
-    sudo -E bash -c "dpkg --install /tmp/nuodb_2.1.1.13_amd64.deb" && \
-    sudo rm /tmp/nuodb_2.1.1.13_amd64.deb
+    dpkg --install /tmp/nuodb_2.1.1.13_amd64.deb && \
+    rm /tmp/nuodb_2.1.1.13_amd64.deb
 
 ### Setup ###
 # Mount volume
