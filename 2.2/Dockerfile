@@ -4,7 +4,7 @@ MAINTAINER kakawait <thibaud.lepretre@gmail.com>
 ### Install dependencies ###
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
-  apt-get -yq install pwgen supervisor gettext-base && \
+  apt-get -yq install pwgen supervisor gettext-base sudo && \
   rm -rf /var/lib/apt/lists/*
 
 ### Install nuodb ###
